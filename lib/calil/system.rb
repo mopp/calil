@@ -15,7 +15,7 @@ module Calil
 
     def method_missing(action, *args)
 
-      if %w(status reserveurl).include? action.to_s
+      if %w(status reserveurl libkey).include? action.to_s
         @element.elements[action.to_s].text
       else
         super
@@ -24,7 +24,7 @@ module Calil
     end
 
     def inspect
-      attr_body = %w(systemid status reserveurl reservable?).map do |method_name|
+      attr_body = %w(systemid status reserveurl libkey reservable?).map do |method_name|
         eval("\"#{method_name}: '#{send(method_name)}'\"")
       end.join(", ")
       "#<System #{attr_body}>"
