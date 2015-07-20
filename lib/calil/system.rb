@@ -13,9 +13,20 @@ module Calil
       !!(@element.elements["reserveurl"] && !@element.elements["reserveurl"].text.to_s.empty?)
     end
 
+    def libkeys
+      element_libkeys = @element.elements['libkeys']
+      return nil if (element_libkeys == nil)
+
+      hash = {}
+      REXML::XPath.each(element_libkeys, "*") do |e|
+          hash[e.attribute('name').value] = e.text
+      end
+      return hash
+    end
+
     def method_missing(action, *args)
 
-      if %w(status reserveurl libkeys).include? action.to_s
+      if %w(status reserveurl).include? action.to_s
         @element.elements[action.to_s].text
       else
         super
