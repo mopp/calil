@@ -35,10 +35,10 @@ module Calil
     end
 
     def inspect
-      attr_body = %w(systemid status reserveurl libkeys reservable?).map do |method_name|
+      attr_body = %w(systemid status reserveurl reservable?).map do |method_name|
         eval("\"#{method_name}: '#{send(method_name)}'\"")
       end.join(", ")
-      "#<System #{attr_body}>"
+      "#<System #{attr_body}, libkeys: #{libkeys().inspect} >"
     end
   end
 
